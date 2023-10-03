@@ -1,0 +1,17 @@
+import pandas as pd
+import matplotlib.pyplot as plt
+
+# Load time series data (assuming it's in a CSV file)
+data = pd.read_csv('time_series_data.csv')
+
+# Assuming your data has a 'timestamp' and 'value' column
+data['timestamp'] = pd.to_datetime(data['timestamp'])
+data.set_index('timestamp', inplace=True)
+
+# Plotting the time series
+plt.figure(figsize=(12, 6))
+plt.plot(data.index, data['value'])
+plt.xlabel('Time')
+plt.ylabel('Value')
+plt.title('Time Series Data Analysis')
+plt.show()
