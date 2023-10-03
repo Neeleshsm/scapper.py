@@ -1,3 +1,10 @@
+cd your_project_directory
+git init
+
+git branch branch_name
+
+git checkout branch_name
+
 import requests
 from bs4 import BeautifulSoup
 import csv
@@ -57,3 +64,14 @@ if __name__ == "__main__":
     # Replace 'http://example.com' with the URL of the website you want to scrape
     scraper = WebsiteScraper('http://example.com')
     scraper.scrape_data()
+
+git add .
+git commit -m "Your commit message"
+git push origin branch_name
+
+git checkout main
+git merge branch_name
+
+
+
+
