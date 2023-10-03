@@ -1,0 +1,59 @@
+import requests
+from bs4 import BeautifulSoup
+import csv
+
+class WebsiteScraper:
+    def __init__(self, url):
+        self.url = url
+
+    def scrape_data(self):
+        try:
+            # Send an HTTP GET request to the website
+            response = requests.get(self.url)
+            response.raise_for_status()
+
+            # Parse the HTML content using BeautifulSoup
+            soup = BeautifulSoup(response.text, 'html.parser')
+
+            # Extract data from the website
+            data = self.extract_data_from_html(soup)
+
+            # Save the data to a CSV file
+            self.save_data_to_csv(data)
+
+            print("Data scraping and CSV export completed successfully.")
+        except Exception as e:
+            print(f"Error: {e}")
+
+    def extract_data_from_html(self, soup):
+        # Replace this section with your own code to extract data from the website
+        # For example:
+        data = []
+
+        # Example: Extracting data from a hypothetical table
+        table = soup.find('table')
+        if table:
+            rows = table.find_all('tr')
+            for row in rows:
+                columns = row.find_all('td')
+                if len(columns) >= 2:  # Assuming there are at least two columns
+                    value1 = columns[0].get_text(strip=True)
+                    value2 = columns[1].get_text(strip=True)
+                    data.append([value1, value2])
+
+        return data
+
+    def save_data_to_csv(self, data):
+        # Define the CSV filename
+        csv_filename = "scraped_data.csv"
+
+        # Write data to CSV file
+        with open(csv_filename, mode='w', newline='') as csv_file:
+            writer = csv.writer(csv_file)
+            writer.writerow(["Column1", "Column2"])  # Replace with your own column names
+            writer.writerows(data)
+
+if __name__ == "__main__":
+    # Replace 'http://example.com' with the URL of the website you want to scrape
+    scraper = WebsiteScraper('http://example.com')
+    scraper.scrape_data()
